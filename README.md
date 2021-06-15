@@ -1,4 +1,0 @@
-- 👋 Merhaba ben Turgay Kara
-- 💻 Python programlama dili öğreniyorum.
-- 👨‍💻 Web Geliştirici ya da Siber Güvenlik olmak istiyorum.
-- 📫
