@@ -1,0 +1,48 @@
+vpnbook
+2mxt8wz
+
+wificard:
+monitör moda geçmek için;
+airmon-ng start wlan1
+
+managed moda geçmek için;
+airmon-ng stop wlan1mon
+
+
+
+prepend domain-name-servers 8.8.8.8, 8.8.4.4;
+
+apt-get update :  gerekli güncellemeleri yapar.
+apt-get upgrade : üst versiyona taşır.(fazla zaman alır.)
+
+
+pwd : 	güncel olarak hangi klasörde olduğunu gösterir.
+ls : 	klasör içeriğini gösterir.
+mkdir : yeni bir klasör oluşturur.
+
+cd : 	gitmek istediğimiz klasöre girer.-> cd Desktop/
+cd .. : bir önce girdiğimiz klasörü açmak için kullanılır.
+
+VPN = Virtual Privacy Network > ip adresinizi değiştirir.
+
+DNS = Domain Name Server > Herhangi bir siteye girdigiğimizde; ip adresini çözümleyen ve o siteye yönlendiren sisteme denir.
+DNS de değiştirilebilir. (internet sağlayıcım hangi sitelere girdiğimi bilmesin.)
+
+
+chattr -a /etc/resolv.conf : özelliklerini değiştir.
+chattr -i /etc/resolv.conf : değiştirilebilir hale geldi.
+chattr +i /etc/resolv.conf : değiştirilemez hale geldi.
+
+
+cd Downloads/
+ls
+openvpn ...
+ctrl + c = sonlandır.
+
+
+ping google.com = yazılan sitenin ip adresini görüntüleyebiliriz.
+
+darkwebe girmek için = Tor -> search for Hidden Wiki
+
+
+
